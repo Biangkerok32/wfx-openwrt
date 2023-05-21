@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2008-2012 OpenWrt.org
+# Copyright (C) 2008-2023 OpenWrt.org
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -7,7 +7,7 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=wfx
+PKG_NAME:=9082xs
 PKG_RELEASE:=1
 PKG_BUILD_PARALLEL:=1
 
@@ -17,19 +17,19 @@ STAMP_CONFIGURED_DEPENDS := $(STAGING_DIR)/usr/include/mac80211-backport/backpor
 include $(INCLUDE_DIR)/kernel.mk
 include $(INCLUDE_DIR)/package.mk
 
-define KernelPackage/wfx
+define KernelPackage/9082xs
  $(call KernelPackage/mac80211/Default)
   SUBMENU:=Wireless Drivers
-  TITLE:=Silabs WF200 Wireless Driver
+  TITLE:=SCI 9082xs Wireless Driver
   DEPENDS:= \
 	+wf200-firmware +kmod-mac80211 +kmod-cfg80211 +@DRIVER_11N_SUPPORT +kmod-nl80211
-  FILES:=$(PKG_BUILD_DIR)/wfx.ko
+  FILES:=$(PKG_BUILD_DIR)/9082xs.ko
   AUTOLOAD:=$(call AutoProbe,mac80211 wfx)
-  PROVIDES:=kmod-wfx
+  PROVIDES:=kmod-9082xs
 endef
 
 define KernelPackage/wfx/description
- Silabs WF200 Wireless Driver
+ SCI 9082xs Wireless Driver
 endef
 
 NOSTDINC_FLAGS = \
@@ -42,7 +42,7 @@ NOSTDINC_FLAGS = \
 	-include backport/backport.h
 
 EXTRA_KCONFIG:= \
-	CONFIG_WFX=y
+	CONFIG_9082XS=y
 
 EXTRA_CFLAGS:= \
 	$(patsubst CONFIG_%, -DCONFIG_%=1, $(patsubst %=m,%,$(filter %=m,$(EXTRA_KCONFIG)))) \
@@ -68,4 +68,4 @@ define Build/Compile
 		modules
 endef
 
-$(eval $(call KernelPackage,wfx))
+$(eval $(call KernelPackage,9082xs))
